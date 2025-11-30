@@ -11,4 +11,4 @@ jobs:
         run: |
           set -eu
           jq -n -S \$ENV
-          jq -S . < "$GITHUB_EVENT"
+          jq -S . < "$GITHUB_EVENT_PATH"
