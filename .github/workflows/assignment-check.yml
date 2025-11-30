@@ -23,3 +23,5 @@ jobs:
 
             (If you are a mentor, and are trying to contribute, reach out in #mentorroom for help.)
           COMMENT
+        env:
+          GH_TOKEN: ${{ github.token }}
