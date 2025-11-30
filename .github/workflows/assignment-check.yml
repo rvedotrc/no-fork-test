@@ -3,29 +3,18 @@
 name: Assignment Check
 
 on:
-  pull_request_target:  # Use pull_request_target to have write permissions for fork PRs
+  pull_request_target: # Use pull_request_target to have write permissions for fork PRs
     types: [opened]
 
 jobs:
   check-if-fork-and-comment:
+    if: ${{ github.event.pull_request.base.repo.id != github.event.pull_request.head.repo.id }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
 
     steps:
-      - name: Check PR is a fork
-        id: check_fork
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const pr = context.payload.pull_request;
-            const isFork = pr.head.repo && pr.head.repo.id !== pr.base.repo.id;
-            console.log(`From fork? ${isFork}`);
-
-            core.setOutput('should_comment', isFork);
-
       - name: Comment assignment instructions for trainees
-        if: steps.check_fork.outputs.should_comment == 'true'
         uses: thollander/actions-comment-pull-request@v3
         continue-on-error: true
         with:
