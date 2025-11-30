@@ -8,7 +8,7 @@ on:
 
 jobs:
   check-if-fork-and-comment:
-    if: ${{ github.event.pull_request.base.repo.id != github.event.pull_request.head.repo.id }}
+    if: ${{ github.event.pull_request.head.repo.fork && !github.event.pull_request.base.repo.fork }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
